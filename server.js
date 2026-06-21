@@ -4,11 +4,26 @@ const path = require("path");
 const fs = require("fs");
 
 const app = express();
-const PORT = 3500; // Changed port to kill ghost background processes instantly
+const PORT = 3500; 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+// 🌟 VERCEL FIX: This points your database file to the allowed temporary folder
+const filePath = "/tmp/appointments.json";
+
+// Helper function to safely read appointments without crashing
+const readAppointments = () => {
+    if (fs.existsSync(filePath)) {
+        try {
+            return JSON.parse(fs.readFileSync(filePath));
+        } catch (e) {
+            return [];
+        }
+    }
+    return [];
+};
 
 // Page Routes
 app.get("/", (req, res) => {
@@ -40,28 +55,18 @@ app.post("/appointment", (req, res) => {
     const { name, phone, date } = req.body;
 
     const appointment = {
-        id: Date.now(), // Generates timestamp ID
+        id: Date.now(), 
         name,
         phone,
         date,
         status: "Pending"
     };
 
-    let appointments = [];
-    if (fs.existsSync("./data/appointments.json")) {
-        appointments = JSON.parse(fs.readFileSync("./data/appointments.json"));
-    }
-
+    let appointments = readAppointments();
     appointments.push(appointment);
 
-    if (!fs.existsSync("./data")) {
-        fs.mkdirSync("./data");
-    }
-
-    fs.writeFileSync(
-        "./data/appointments.json",
-        JSON.stringify(appointments, null, 2)
-    );
+    // Save directly to Vercel's temporary folder
+    fs.writeFileSync(filePath, JSON.stringify(appointments, null, 2));
 
     res.send(`
         <script>
@@ -72,49 +77,30 @@ app.post("/appointment", (req, res) => {
 });
 
 app.get("/api/appointments", (req, res) => {
-    if (fs.existsSync("./data/appointments.json")) {
-        const appointments = JSON.parse(fs.readFileSync("./data/appointments.json"));
-        res.json(appointments);
-    } else {
-        res.json([]);
-    }
+    const appointments = readAppointments();
+    res.json(appointments);
 });
 
-// 🔥 ENHANCED DELETE ROUTE WITH ERROR REPORTING
+// DELETE ROUTE
 app.post("/api/appointments/delete/:id", (req, res) => {
     const appointmentId = req.params.id;
-    const filePath = "./data/appointments.json";
-
-    if (!fs.existsSync(filePath)) {
-        return res.status(404).json({ success: false, message: "Database file (appointments.json) does not exist yet." });
-    }
 
     try {
-        let appointments = JSON.parse(fs.readFileSync(filePath));
-        
-        // Convert both IDs to strings to prevent comparison bugs
+        let appointments = readAppointments();
         appointments = appointments.filter(a => String(a.id) !== String(appointmentId));
         
         fs.writeFileSync(filePath, JSON.stringify(appointments, null, 2));
         return res.json({ success: true, message: "Deleted successfully" });
     } catch (err) {
-        return res.status(500).json({ success: false, message: "Failed to rewrite the database file layout." });
+        return res.status(500).json({ success: false, message: "Failed to update appointments." });
     }
 });
 
 app.get("/api/dashboard", (req, res) => {
-    let patients = [];
-    if (fs.existsSync("./data/patients.json")) {
-        patients = JSON.parse(fs.readFileSync("./data/patients.json"));
-    }
-
-    let appointments = [];
-    if (fs.existsSync("./data/appointments.json")) {
-        appointments = JSON.parse(fs.readFileSync("./data/appointments.json"));
-    }
+    let appointments = readAppointments();
 
     res.json({
-        totalPatients: patients.length + appointments.length,
+        totalPatients: appointments.length,
         totalAppointments: appointments.length,
         pendingAppointments: appointments.length,
         completedAppointments: 0
