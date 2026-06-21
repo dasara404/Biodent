@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Biodent</title>
+
+<style>
+:root {
+    --gold-primary: #c5a85c;
+    --gold-dark: #9a7e38;
+    --gold-light: #f4ebd0;
+    --black-true: #0a0a0a;
+    --black-matte: #1a1a1a;
+    --white-pure: #ffffff;
+    --white-soft: #fcfcfc;
+    --text-muted: #555555;
+    --line-subtle: rgba(197, 168, 92, 0.2);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--white-pure);
+    color: var(--black-matte);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Luxury Editorial Geometric Background Matrix */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(to right, rgba(10, 10, 10, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(197, 168, 92, 0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Subtle gold ambient glow in the background corner */
+body::after {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(197, 168, 92, 0.03) 0%, transparent 70%);
+    bottom: -100px;
+    left: -100px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* MASTER CONTAINER */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 0 100px 0;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* EDITORIAL PAGE HEADER */
+.header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.header-welcome {
+    color: var(--gold-dark);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.header h1 {
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 300;
+    color: var(--black-true);
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.gold-line {
+    width: 80px;
+    height: 1px;
+    background-color: var(--gold-primary);
+    margin: 25px auto;
+}
+
+.header p {
+    color: var(--text-muted);
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* NEW ASYMMETRIC VISUAL GALLERY SYSTEM (BIG AND SMALL IMAGES) */
+.editorial-gallery {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 30px;
+    margin-bottom: 80px;
+    width: 100%;
+}
+
+.gallery-frame {
+    position: relative;
+    background: var(--white-soft);
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.02);
+}
+
+/* Luxury geometric layout edge highlights */
+.gallery-frame::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 15px;
+    height: 15px;
+    border-top: 1.5px solid var(--gold-primary);
+    border-left: 1.5px solid var(--gold-primary);
+}
+
+.gallery-placeholder {
+    width: 100%;
+    background-color: #f0f0f0;
+    border: 1px solid var(--black-true);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999999;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-image-box .gallery-placeholder {
+    height: 450px;
+}
+
+.side-gallery-column {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 30px;
+}
+
+.small-image-box .gallery-placeholder {
+    height: 210px;
+}
+
+/* COMMUNICATIONS AND INFORMATION BLOCK COMBINED SPLIT */
+.main-info-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 80px;
+    align-items: start;
+}
+
+@media(min-width: 950px) {
+    .main-info-split {
+        grid-template-columns: 1.2fr 0.8fr;
+    }
+}
+
+/* CONTACT GRID SYSTEM */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.info-card {
+    padding: 30px;
+    background: var(--white-soft);
+    border: 1px solid var(--black-true);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.info-card::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+}
+
+.info-card:hover::after {
+    border-color: var(--line-subtle);
+}
+
+.info-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold-dark);
+    margin-bottom: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Geometric custom point dot */
+.info-label::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--gold-primary);
+    display: inline-block;
+}
+
+.info-card p {
+    font-size: 16px;
+    color: var(--black-matte);
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* HIGH-END BLACK WORKING HOURS PANEL */
+.hours-panel {
+    background-color: var(--black-true);
+    color: var(--white-pure);
+    padding: 40px;
+    border: 1px solid var(--gold-primary);
+    position: relative;
+}
+
+.hours-panel::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 20px;
+    height: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.hours-panel h3 {
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white-pure);
+    margin-bottom: 25px;
+    font-weight: 400;
+    border-bottom: 1px solid #222222;
+    padding-bottom: 15px;
+}
+
+.hours-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px dashed #222222;
+    padding-bottom: 8px;
+}
+
+.hours-row:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.hours-row .day {
+    color: #888888;
+}
+
+.hours-row .time {
+    font-weight: 600;
+    color: var(--white-pure);
+}
+
+.hours-row.closed .time {
+    color: var(--gold-primary);
+}
+
+/* REAL GOOGLE MAPS INTERACTIVE SYSTEM */
+.map-block {
+    width: 100%;
+    margin-bottom: 80px;
+}
+
+.map-heading {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.map-outer-frame {
+    position: relative;
+    padding: 12px;
+    background: var(--white-soft);
+    border: 1px solid var(--black-true);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
+}
+
+/* Gold Corner Accents on Map Frame Module */
+.map-outer-frame::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 18px;
+    height: 18px;
+    border-top: 1.5px solid var(--gold-primary);
+    border-left: 1.5px solid var(--gold-primary);
+}
+
+.map-outer-frame::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    border-bottom: 1.5px solid var(--gold-primary);
+    border-right: 1.5px solid var(--gold-primary);
+}
+
+.map-outer-frame iframe {
+    width: 100%;
+    height: 420px;
+    display: block;
+    border: 1px solid var(--black-true);
+    filter: grayscale(35%) contrast(102%);
+    transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.map-outer-frame:hover iframe {
+    filter: grayscale(0%) contrast(100%);
+}
+
+.map-link-overlay {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--black-matte);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.map-link-overlay:hover {
+    color: var(--gold-dark);
+}
+
+/* BRAND PHILOSOPHY STATEMENT FOOTER BOX */
+.info-section {
+    text-align: center;
+    padding: 50px 40px;
+    background: var(--white-soft);
+    border-top: 1px solid var(--black-true);
+    border-bottom: 1px solid var(--black-true);
+    max-width: 900px;
+    margin: 0 auto 60px auto;
+}
+
+.info-section h2 {
+    color: var(--black-true);
+    font-size: 26px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.info-section p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-size: 16px;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* ARCHITECTURAL BACK BUTTON TERMINAL CONTROLLER */
+.btn-container {
+    text-align: center;
+}
+
+.back-btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 16px 40px;
+    background: var(--black-true);
+    color: var(--white-pure);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: 1px solid var(--black-true);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.back-btn::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid var(--gold-primary);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.back-btn:hover {
+    background: var(--white-pure);
+    color: var(--black-true);
+    box-shadow: 0 15px 35px rgba(197, 168, 92, 0.12);
+    transform: translateY(-2px);
+}
+
+.back-btn:hover::before {
+    border-color: var(--black-true);
+    inset: -1px;
+}
+
+/* RESPONSIVE STRUCTURE MEDIA INTERFACES */
+@media(max-width: 900px){
+    .editorial-gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .main-image-box .gallery-placeholder {
+        height: 320px;
+    }
+    
+    .side-gallery-column {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .small-image-box .gallery-placeholder {
+        height: 160px;
+    }
+    
+    .map-outer-frame iframe {
+        height: 300px;
+    }
+}
+
+@media(max-width: 550px) {
+    .side-gallery-column {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER TITLE COMPONENT -->
+    <div class="header">
+        <span class="header-welcome">Get In Touch</span>
+        <h1>Contact Biodent</h1>
+        <div class="gold-line"></div>
+        <p>
+            We are always ready to help you achieve
+            a healthier and brighter smile.
+        </p>
+    </div>
+
+    <!-- ASYMMETRIC PHOTOGRAPHIC LAYOUT ARRAYS (BIG AND SMALL IMAGES) -->
+    <div class="editorial-gallery">
+        <!-- Big Front Focus Image Container -->
+        <div class="gallery-frame main-image-box">
+            <div class="gallery-placeholder">
+                <span>[ Primary Clinic Showcase Image - Big ]</span>
+                <img src="kompjuter.jpg" style="width:100%; height:100%; object-fit:cover; position:absolute;"> 
+            </div>
+        </div>
+        
+        <!-- Two Smaller Segment Image Containers -->
+        <div class="side-gallery-column">
+            <div class="gallery-frame small-image-box">
+                <div class="gallery-placeholder">
+                    <span>[ Interior Space Accent - Small ]</span>
+                    <img src="durt.jpg" style="width:100%; height:100%; object-fit:cover; position:absolute;"> 
+                </div>
+            </div>
+            <div class="gallery-frame small-image-box">
+                <div class="gallery-placeholder">
+                    <span>[ Dental Suite Detail - Small ]</span>
+                    <img src="uau.jpg" style="width:100%; height:100%; object-fit:cover; position:absolute;"> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CORE DIRECTORY GRID AND BOOKING MATRIX HOVER CHASSIS -->
+    <div class="main-info-split">
+        
+        <!-- Left Side: Communication Targets -->
+        <div class="contact-grid">
+            <div class="info-card">
+                <div class="info-label">Phone Number</div>
+                <p>+383 49 176 542</p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-label">Alternative Phone</div>
+                <p>+383 44 176 542</p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-label">Email Address</div>
+                <p>info@biodent.com</p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-label">Clinic Address</div>
+                <p>
+                    Mitrovica<br>
+                    Rr. Mbreteresha Teuta
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Side: Luxury Scheduling Panel -->
+        <div class="hours-panel">
+            <h3>Working Hours</h3>
+            <div class="hours-wrapper">
+                <div class="hours-row">
+                    <span class="day">Monday - Friday</span>
+                    <span class="time">08:00 - 20:00</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">Saturday</span>
+                    <span class="time">09:00 - 16:00</span>
+                </div>
+                <div class="hours-row closed">
+                    <span class="day">Sunday</span>
+                    <span class="time">Closed</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- GOOGLE MAPS MODULE CONTEXT LAYOUT BLOCK -->
+    <div class="map-block">
+        <div class="map-heading">Our Precise Location</div>
+        <div class="map-outer-frame">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.6322046835153!2d20.8647!3d42.8894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135345391dcd1923%3A0x280e5e0dc3bbd8c6!2sMitrovica!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                width="100%" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Biodent+Klinika+Dentare+Mitrovica" target="_blank" class="map-link-overlay">
+            ↗ Open Directly in Google Maps Application
+        </a>
+    </div>
+
+    <!-- BRAND SUMMARY SYSTEM STATEMENT -->
+    <div class="info-section">
+        <h2>Your Smile Matters</h2>
+        <p>
+            At Biodent, we combine modern dental technology with professional expertise
+            to provide exceptional care in a comfortable and welcoming environment. 
+            Contact us today to schedule your appointment.
+        </p>
+    </div>
+
+    <!-- DISPATCH CONTROLLER ACTION -->
+    <div class="btn-container">
+        <a href="/" class="back-btn">
+            Back Home
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

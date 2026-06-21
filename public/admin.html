@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biodent - Executive Management Dashboard</title>
+
+<style>
+:root {
+    --gold-primary: #bfa15f;
+    --gold-light: #f3e5ab;
+    --gold-dark: #8a6f3e;
+    --black-accent: #0a0a0a;
+    --bg-light: #fafafa;
+    --text-dark: #1a1a1a;
+    --text-muted: #555555;
+    --border-subtle: rgba(186, 161, 95, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(to right, rgba(186, 161, 95, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(186, 161, 95, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle at center, black 80%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at center, black 80%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--black-accent);
+    letter-spacing: -0.5px;
+}
+
+.logo img {
+    height: 32px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-btn {
+    text-decoration: none;
+    padding: 10px 24px;
+    background: var(--black-accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--black-accent);
+}
+
+.nav-btn:hover {
+    background: transparent;
+    color: var(--black-accent);
+    transform: translateY(-2px);
+}
+
+#logoutBtn {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+#logoutBtn:hover {
+    background: #fff0f0;
+    color: #c92a2a;
+    border-color: #c92a2a;
+}
+
+.container {
+    width: 90%;
+    max-width: 1350px;
+    margin: auto;
+    padding: 40px 0;
+    position: relative;
+    z-index: 2;
+    animation: premiumReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes premiumReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1.dashboard-title {
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: -1px;
+    color: var(--black-accent);
+    margin-bottom: 8px;
+}
+
+.line {
+    width: 60px;
+    height: 2px;
+    background: var(--gold-primary);
+    margin-bottom: 40px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 50px;
+}
+
+.stat-card {
+    background: var(--black-accent);
+    padding: 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.03);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15%;
+    height: 70%;
+    width: 3px;
+    background: var(--gold-primary);
+    transform: scaleY(0);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stat-card:hover {
+    transform: translateX(6px);
+    background: #111111;
+    border-color: rgba(191, 161, 95, 0.25);
+}
+
+.stat-card:hover::before { 
+    transform: scaleY(1); 
+}
+
+.stat-card h2 {
+    font-size: 38px;
+    font-weight: 300;
+    color: var(--gold-primary);
+    letter-spacing: -1px;
+    order: 2;
+}
+
+.stat-card p {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #888888;
+    margin-bottom: 0;
+    order: 1;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    color: var(--black-accent);
+    margin-bottom: 20px;
+}
+
+.table-wrapper {
+    background: #ffffff;
+    border-radius: 4px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    padding: 16px 24px;
+    background: #fdfcf9;
+    color: var(--black-accent);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+td {
+    padding: 18px 24px;
+    color: var(--text-dark);
+    font-size: 15px;
+    border-bottom: 1px solid rgba(186, 161, 95, 0.08);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr {
+    transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+    background: rgba(186, 161, 95, 0.03);
+}
+
+.complete-btn {
+    background: transparent;
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-dark);
+    padding: 6px 14px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.complete-btn:hover {
+    background: var(--black-accent);
+    border-color: var(--black-accent);
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--gold-primary);
+    border-radius: 2px;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="dhomi.png" alt="Biodent Logo"> 
+        <span>Biodent Executive</span>
+    </div>
+    <div class="nav-links">
+        <a href="/" class="nav-btn">Back Home</a>
+        <a href="#" id="logoutBtn" class="nav-btn">Logout</a>
+    </div>
+</header>
+
+<div class="container">
+
+    <h1 class="dashboard-title">Dashboard Overview</h1>
+    <div class="line"></div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h2 id="patients">0</h2>
+            <p>Total Patients</p>
+        </div>
+        <div class="stat-card">
+            <h2 id="appointments">0</h2>
+            <p>Appointments</p>
+        </div>
+        <div class="stat-card">
+            <h2 id="pending">0</h2>
+            <p>Pending Actions</p>
+        </div>
+        <div class="stat-card">
+            <h2 id="completed">0</h2>
+            <p>Completed Cases</p>
+        </div>
+    </div>
+
+    <h2 class="section-title">Upcoming Appointments Queue</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Phone Contact</th>
+                    <th>Scheduled Date</th>
+                    <th>Management</th>
+                </tr>
+            </thead>
+            <tbody id="appointmentTable">
+                </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+if (localStorage.getItem("biodent_admin") !== "true") {
+    window.location.href = "/login";
+}
+
+document.getElementById("logoutBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    localStorage.removeItem("biodent_admin");
+    window.location.href = "/login";
+});
+
+async function loadDashboard(){
+    try {
+        const response = await fetch("/api/dashboard");
+        const data = await response.json();
+
+        document.getElementById("patients").textContent = data.totalPatients || 0;
+        document.getElementById("appointments").textContent = data.totalAppointments || 0;
+        document.getElementById("pending").textContent = data.pendingAppointments || 0;
+        document.getElementById("completed").textContent = data.completedAppointments || 0;
+    } catch(e) { console.log("Dashboard values offline"); }
+}
+
+async function loadAppointments(){
+    try {
+        const response = await fetch("/api/appointments");
+        const appointments = await response.json();
+
+        const table = document.getElementById("appointmentTable");
+        table.innerHTML = "";
+
+        if(appointments.length === 0) {
+            table.innerHTML = `<tr><td colspan="4" style="text-align:center; color: var(--text-muted); font-size:14px; padding: 30px;">No active entries inside the server file.</td></tr>`;
+            return;
+        }
+
+        appointments.forEach(a => {
+            // If old data item doesn't have an ID, safe-fallback to its timestamp or phone structure
+            const itemID = a.id || a.phone; 
+            
+            table.innerHTML += `
+                <tr>
+                    <td style="font-weight: 500; color: var(--black-accent);">${a.name}</td>
+                    <td style="color: var(--text-muted);">${a.phone}</td>
+                    <td style="color: var(--gold-dark); font-weight: 500;">${a.date}</td>
+                    <td>
+                        <button class="complete-btn" onclick="deleteAppointment('${itemID}')">Complete</button>
+                    </td>
+                </tr>
+            `;
+        });
+    } catch(e) { console.log("Appointment table rows offline"); }
+}
+
+async function deleteAppointment(id) {
+    if (!id || id === "undefined") {
+        alert("❌ This specific appointment is missing an ID. Try filling out a brand new appointment on the homepage first!");
+        return;
+    }
+
+    if (confirm("Mark this appointment as complete and clear from schedule?")) {
+        try {
+            const response = await fetch(`/api/appointments/delete/${id}`, {
+                method: "POST"
+            });
+            
+            if (response.ok) {
+                loadDashboard();
+                loadAppointments();
+            } else {
+                const errorData = await response.json().catch(() => ({ message: "Unknown response error format." }));
+                alert(`❌ Server Error (${response.status}): ${errorData.message}`);
+            }
+        } catch (error) {
+            alert("❌ Connection Error: Could not connect to the server logic. Ensure your command prompt terminal is running.");
+            console.error("Deletion communication error:", error);
+        }
+    }
+}
+
+loadDashboard();
+loadAppointments();
+</script>
+
+</body>
+</html>
