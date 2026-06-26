@@ -66,10 +66,24 @@ body::after {
     align-items: center;
     position: relative;
     z-index: 1;
-    padding: 40px 20px 80px 20px;
+    padding: 0 0 80px 0; /* Adjusted padding to accommodate the full-width banner */
     width: 100%;
-    max-width: 1400px;
     margin: 0 auto;
+}
+
+/* HEADER BANNER WITH BACKGROUND PHOTO */
+.header-banner {
+    width: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('/ctscan(1).jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 60px 20px;
+    margin-bottom: 70px;
+    border-bottom: 1px solid var(--line-subtle);
 }
 
 /* DETAILED MINIMALIST NAVIGATION */
@@ -118,8 +132,8 @@ nav a:hover {
     align-items: center;
     justify-content: center;
     gap: 50px;
-    margin-bottom: 80px;
     width: 100%;
+    max-width: 1400px;
     position: relative;
 }
 
@@ -171,6 +185,7 @@ nav a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 20px;
 }
 
 .tagline h2 {
@@ -305,11 +320,14 @@ nav a:hover {
 
 /* RESPONSIVE DESIGN FOR MEDIUM & MOBILE SCREEN SIZES */
 @media(max-width:950px){
+    .header-banner {
+        margin-bottom: 50px;
+    }
+
     .hero-content {
         flex-direction: column;
         text-align: center;
         gap: 30px;
-        margin-bottom: 50px;
     }
 
     .hero-text {
@@ -338,28 +356,28 @@ nav a:hover {
         margin-bottom: 50px;
     }
 }
-
-
 </style>
 </head>
 <body>
 
 <section class="hero">
 
-    <nav>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/appointments">Appointment</a>
-        <a href="/login">Login</a>
-    </nav>
+    <div class="header-banner">
+        <nav>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/appointments">Appointment</a>
+            <a href="/login">Login</a>
+        </nav>
 
-    <div class="hero-content">
-        <img src="dhomi(1).png" alt="Biodent Logo" class="logo">
+        <div class="hero-content">
+            <img src="dhomi(1).png" alt="Biodent Logo" class="logo">
 
-        <div class="hero-text">
-            <div class="welcome">Welcome to</div>
-            <div class="clinic">KLINIKA DENTARE</div>
-            <div class="brand">BIODENT</div>
+            <div class="hero-text">
+                <div class="welcome">Welcome to</div>
+                <div class="clinic">KLINIKA DENTARE</div>
+                <div class="brand">BIODENT</div>
+            </div>
         </div>
     </div>
 
